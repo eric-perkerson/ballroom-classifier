@@ -29,13 +29,14 @@ eps = 10.
 xplt = np.linspace(a - eps, b + eps, num=200)
 ys = {}
 kde_dict = {}
-for style in tempo_dict.keys():
+styles = tempo_dict.keys()
+styles = ['international_rumba', 'waltz', 'viennese_waltz']
+for style in styles:
     kde_dict[style] = KernelDensity(kernel='gaussian', bandwidth=5.)
     kde_dict[style].fit(np.array(tempo_dict[style]).reshape(-1, 1))
     ys[style] = np.exp(kde_dict[style].score_samples(xplt.reshape(-1, 1)))
     plt.plot(xplt, ys[style])
 
-plt.legend(tempo_dict.keys())
+plt.legend(styles)
 plt.show()
-
 
